@@ -20,7 +20,7 @@ export async function getDbConnection() {
     const DATABASE_USER = process.env.DATABASE_USER || "sa";
     const DATABASE_PORT = 1433;
     const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD || "yourStrong(!)Password";
-    const DATABASE_DB = "Peggy";
+    const DATABASE_DB = "Node";
 
     const entities = [
         Movie,

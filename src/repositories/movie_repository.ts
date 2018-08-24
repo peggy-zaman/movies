@@ -9,4 +9,10 @@ export class MovieRepository extends Repository<IMovie>{
     public async getMovies() :Promise<IMovie[]>{
         return this.find({relations:["reviews"]});
     }
+
+    public async addMovies(movie :Movie) :Promise<IMovie>{
+        this.insert(movie);
+        this.save(movie);
+        return movie;
+    }
 }

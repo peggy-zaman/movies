@@ -1,8 +1,10 @@
-import { interfaces, controller, httpGet, response, httpPost } from "inversify-express-utils";
+import { interfaces, controller, httpGet, response, httpPost, requestBody } from "inversify-express-utils";
 import { IMovieService } from "../services/interfaces/movie_service";
 import { inject } from "inversify";
 import * as express from 'Express';
 import { TYPES } from "../constants/types";
+import { IMovie } from "../entities/interfaces/movie";
+import { Movie } from "../entities/schema/movie";
 @controller("/api/v1/movie")
 export class MovieController implements interfaces.Controller {
     private movieService: IMovieService;
@@ -19,9 +21,14 @@ export class MovieController implements interfaces.Controller {
         }
     }
     @httpPost("/")
-    public async addMovies(@response() res: express.Response){
+    public async addMovies( 
+        @response() res: express.Response,
+        @requestBody() newMovie: Movie ){
         try {
-            return await this.movieService.getMovies();
+            const movie = {
+                ...newMovie
+            };
+           this.movieService.addMovies(movie);
         } catch (error) {
             res.status(500);
             res.send(error.message);
