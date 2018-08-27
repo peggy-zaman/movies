@@ -1,5 +1,6 @@
 export const TYPES = {
-    ReviewRepository: Symbol('ReviewRepository'),
+    ReviewService: Symbol('ReviewService'),
     MovieService:Symbol('MovieService'),
-    Controller: Symbol('Controller')
+    Controller: Symbol('Controller'),
+    UserService:Symbol('UserService')
 };

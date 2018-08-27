@@ -1,11 +1,14 @@
-import { Column, OneToMany, Entity } from "typeorm";
+import { Column, OneToMany, Entity, ManyToMany } from "typeorm";
 import { IReview } from "../interfaces/review";
 import { Review } from "./review";
 import { IMovie } from "../interfaces/movie";
 import { BaseEntity } from "./base_entity";
+import { User } from "./user";
+import { IUser } from "../interfaces/user";
 
 @Entity()
-export class Movie extends BaseEntity implements IMovie{
+export class Movie extends BaseEntity implements IMovie {
+
     @Column()
     public title: string;
     @Column()
@@ -17,5 +20,8 @@ export class Movie extends BaseEntity implements IMovie{
     @Column()
     public year: number;
     @Column()
-    public Genre: string;
+    public genre: string;
+    @ManyToMany(type => User, user => user.movies)
+    users: IUser[];
+
 }

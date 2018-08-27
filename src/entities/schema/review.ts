@@ -12,14 +12,11 @@ import { Movie } from "./movie";
 export class Review extends BaseEntity implements IReview {
 
     @Column()
-    // @mustBe(a.string().required())
     public title: string;
-
     @Column()
-    description!: string;
-
+    public description: string;
     @Column()
-    rating!: number;
+    public rating: number;
 
     @ManyToOne(type => Movie, movie => movie.reviews)
     movie: IMovie;

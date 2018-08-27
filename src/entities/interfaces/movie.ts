@@ -2,6 +2,7 @@
 
 import { IBaseEntity } from "./base_entity";
 import { IReview } from "./review";
+import { IUser } from "./user";
 
 export interface IMovie extends IBaseEntity {
     title: string;
@@ -9,5 +10,7 @@ export interface IMovie extends IBaseEntity {
     rating: number;
     reviews: IReview[];
     year: number;
-    Genre: string;
+    genre: string;
+    users: IUser[];
+
 }
