@@ -8,6 +8,9 @@ import { MovieController } from './src/controllers/movie_controller';
 import { ReviewController } from './src/controllers/review_controller';
 import { ReviewService } from './src/services/implementations/review_service';
 import { IReviewService } from './src/services/interfaces/review_service';
+import { UserController } from './src/controllers/user_controller';
+import { UserService } from './src/services/implementations/user_service';
+import { IUserService } from './src/services/interfaces/user_service';
 
 export const bindings = new AsyncContainerModule(async (bind) => {
 
@@ -17,5 +20,8 @@ export const bindings = new AsyncContainerModule(async (bind) => {
 
     bind<inversifyInterfaces.Controller>(TYPES.Controller).to(ReviewController).whenTargetNamed("ReviewController")
     bind<IReviewService>(TYPES.ReviewService).to(ReviewService);
+
+    bind<inversifyInterfaces.Controller>(TYPES.Controller).to(UserController).whenTargetNamed("UserController")
+    bind<IUserService>(TYPES.UserService).to(UserService);
 
 });
