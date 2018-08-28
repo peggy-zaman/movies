@@ -21,10 +21,9 @@ export class UserRepository extends Repository<IUser> {
     public async addMovieToFavorites(userId: number, movie: IMovie) {
 
         return this.createQueryBuilder()
-            .relation(User, "movies")
+            .relation(User, "favoriteMovies")
             .of(userId)
             .add(movie.id);
-
 
 
         // const user = await this.findOne(userId, {relations:["movies"]});
@@ -38,5 +37,24 @@ export class UserRepository extends Repository<IUser> {
 
         //     this.insert(userObj);
         // }
+    }
+    public async removeMovieFromFavorites(userId: number, movie: IMovie) {
+        return this.createQueryBuilder()
+            .relation(User, "favoriteMovies")
+            .of(userId)
+            .remove(movie.id);
+    }
+    public async addMovieToWatchLater(userId: number, movie: IMovie) {
+        return this.createQueryBuilder()
+            .relation(User, "watchLaterMovies")
+            .of(userId)
+            .add(movie.id);
+    }
+    public async removieMovieFromWatchLater(userId: number, movie: IMovie) {
+        return this.createQueryBuilder()
+            .relation(User, "watchLaterMovies")
+            .of(userId)
+            .remove(movie.id);
+
     }
 }

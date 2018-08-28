@@ -3,6 +3,6 @@ import { IMovie } from "./movie";
 
 export interface IUser extends IBaseEntity {
 
-    movies:IMovie[];
-
+    favoriteMovies: IMovie[];
+    watchLaterMovies: IMovie[];
 }

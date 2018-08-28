@@ -25,7 +25,7 @@ export class UserController implements interfaces.Controller {
 
     }
 
-    
+
     public async add(@response() res: express.Response, @requestBody() newUser: User) {
         try {
             const user = Object.create(User.prototype);
@@ -36,12 +36,48 @@ export class UserController implements interfaces.Controller {
             res.send(e.message);
         }
     }
-    @httpPost("/")
+    @httpPost("/addFavorite")
     public async addMovieToFavorites(@response() res: express.Response, @queryParam("userId") userId: string, @requestBody() newMovie: Movie) {
         try {
             const movie = Object.create(Movie.prototype);
             Object.assign(movie, newMovie, {});
             await this.userService.addMovieToFavorites(+userId, movie)
+        } catch (e) {
+            res.status(500);
+            res.send(e.message);
+        }
+    }
+
+    @httpPost("/removeFavorite")
+    public async removeMovieFromFavorites(@response() res: express.Response, @queryParam("userId") userId: string, @requestBody() newMovie: Movie) {
+        try {
+            const movie = Object.create(Movie.prototype);
+            Object.assign(movie, newMovie, {});
+            await this.userService.removeMovieFromFavorites(+userId, movie)
+        } catch (e) {
+            res.status(500);
+            res.send(e.message);
+        }
+    }
+
+    @httpPost("/addWatchLater")
+    public async addMovieToWatchLater(@response() res: express.Response, @queryParam("userId") userId: string, @requestBody() newMovie: Movie) {
+        try {
+            const movie = Object.create(Movie.prototype);
+            Object.assign(movie, newMovie, {});
+            await this.userService.addMovieToWatchLater(+userId, movie)
+        } catch (e) {
+            res.status(500);
+            res.send(e.message);
+        }
+    }
+
+    @httpPost("/removeWatchLater")
+    public async removeMovieFromWatchLater(@response() res: express.Response, @queryParam("userId") userId: string, @requestBody() newMovie: Movie) {
+        try {
+            const movie = Object.create(Movie.prototype);
+            Object.assign(movie, newMovie, {});
+            await this.userService.removeMovieFromWatchLater(+userId, movie)
         } catch (e) {
             res.status(500);
             res.send(e.message);

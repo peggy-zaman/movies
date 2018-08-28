@@ -5,5 +5,6 @@ export interface IReview extends IBaseEntity {
     title: string;
     description: string;
     movie: IMovie;
+    
 
 }

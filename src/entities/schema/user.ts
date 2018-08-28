@@ -5,8 +5,12 @@ import { ManyToMany, JoinTable, Entity } from "typeorm";
 import { IMovie } from "../interfaces/movie";
 
 @Entity()
-export class User extends BaseEntity implements IUser{
+export class User extends BaseEntity implements IUser {
     @ManyToMany(type => Movie)
     @JoinTable()
-    movies: IMovie[]
+    favoriteMovies: IMovie[]
+
+    @ManyToMany(type => Movie)
+    @JoinTable()
+    watchLaterMovies: IMovie[]
 }

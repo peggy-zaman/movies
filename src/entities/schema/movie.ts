@@ -21,7 +21,7 @@ export class Movie extends BaseEntity implements IMovie {
     public year: number;
     @Column()
     public genre: string;
-    @ManyToMany(type => User, user => user.movies)
+    @ManyToMany(type => User, user => user.favoriteMovies)
     users: IUser[];
 
 }
