@@ -1,4 +1,4 @@
-import { interfaces, controller, httpGet, response, httpPost, requestBody, httpDelete } from "inversify-express-utils";
+import { interfaces, controller, httpGet, response, httpPost, requestBody, httpDelete, queryParam, httpPut } from "inversify-express-utils";
 import { IMovieService } from "../services/interfaces/movie_service";
 import { inject } from "inversify";
 import * as express from 'Express';
@@ -14,7 +14,7 @@ export class MovieController implements interfaces.Controller {
         this.movieService = movieService;
     }
     @httpGet("/")
-    public async getMovies(@response() res: express.Response){
+    public async getMovies(@response() res: express.Response) {
         try {
             return await this.movieService.getMovies();
         } catch (error) {
@@ -23,13 +23,13 @@ export class MovieController implements interfaces.Controller {
         }
     }
     @httpPost("/")
-    public async addMovies( 
+    public async addMovies(
         @response() res: express.Response,
-        @requestBody() newMovie: Movie ){
+        @requestBody() newMovie: Movie) {
         try {
             const movie = Object.create(Movie.prototype);
-            Object.assign(movie,newMovie, {});
-           this.movieService.addMovies(movie);
+            Object.assign(movie, newMovie, {});
+            this.movieService.addMovies(movie);
         } catch (error) {
             res.status(500);
             res.send(error.message);
@@ -37,16 +37,30 @@ export class MovieController implements interfaces.Controller {
     }
 
     @httpDelete("/")
-    public async deleteMovie( 
+    public async deleteMovie(
         @response() res: express.Response,
-        @requestBody() newMovie: Movie ){
+        @requestBody() newMovie: Movie) {
         try {
             const movie = Object.create(Movie.prototype);
-            Object.assign(movie,newMovie, {});
-           this.movieService.deleteMovie(movie);
+            Object.assign(movie, newMovie, {});
+            this.movieService.deleteMovie(movie);
         } catch (error) {
             res.status(500);
             res.send(error.message);
         }
     }
+    @httpPut("/like")
+    public async likeMovies(
+        @response() res: express.Response,
+        @requestBody() newMovie: Movie) {
+        try {
+            const movie = Object.create(Movie.prototype);
+            Object.assign(movie, newMovie, {});
+            this.movieService.likeMovie(movie);
+        } catch (error) {
+            res.status(500);
+            res.send(error.message);
+        }
+    }
+
 }

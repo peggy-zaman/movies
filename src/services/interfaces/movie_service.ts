@@ -6,4 +6,5 @@ export interface IMovieService {
     getMovies(): Promise<IMovie[]>;
     addMovies(movie: IMovie): Promise<IMovie>;
     deleteMovie(movie: IMovie);
+    likeMovie(movie: IMovie);
 }

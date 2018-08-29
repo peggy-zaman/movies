@@ -9,6 +9,8 @@ import { IUser } from "../interfaces/user";
 @Entity()
 export class Movie extends BaseEntity implements IMovie {
 
+    @Column({ nullable: true })
+    public likeCounter?: number;
     @Column()
     public title: string;
     @Column()

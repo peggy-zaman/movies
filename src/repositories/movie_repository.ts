@@ -18,4 +18,8 @@ export class MovieRepository extends Repository<IMovie>{
     public async deleteMovie(movie: IMovie) {
         this.remove(movie);
     }
+
+    public async updateLikes(movie: IMovie) {
+        this.save(movie);
+    }
 }
