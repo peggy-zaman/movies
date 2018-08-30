@@ -22,6 +22,15 @@ export class MovieController implements interfaces.Controller {
             res.send(error.message);
         }
     }
+    @httpGet("/upcomings")
+    public async getUpcomingMovies(@response() res: express.Response, @queryParam("country") country: string, @queryParam("language") language: string) {
+        try {
+            return await this.movieService.getUpcomingMovies(country, language);
+        } catch (error) {
+            res.status(500);
+            res.send(error.message);
+        }
+    }
     @httpPost("/")
     public async addMovies(
         @response() res: express.Response,

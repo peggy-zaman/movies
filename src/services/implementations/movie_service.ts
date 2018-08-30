@@ -6,6 +6,7 @@ import { MovieRepository } from "../../repositories/movie_repository";
 
 @injectable()
 export class MovieService implements IMovieService {
+
     movieRepository = getCustomRepository(MovieRepository);
 
     public async getMovies(): Promise<IMovie[]> {
@@ -22,6 +23,9 @@ export class MovieService implements IMovieService {
 
     likeMovie(movie: IMovie) {
         this.movieRepository.updateLikes(movie);
+    }
+    getUpcomingMovies(country: string, language: string): Promise<IMovie[]> {
+        return this.movieRepository.getUpcomingMovies(country, language);
     }
 
 }

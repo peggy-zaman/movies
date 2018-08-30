@@ -22,4 +22,13 @@ export class MovieRepository extends Repository<IMovie>{
     public async updateLikes(movie: IMovie) {
         this.save(movie);
     }
+    public async getUpcomingMovies(country: string, language: string): Promise<IMovie[]> {
+        const todayDate = new Date();
+        const before: string = (todayDate.getFullYear(), + '-' + todayDate.getMonth(), + '-' + todayDate.getDate() - 2 + ' ' + todayDate.getHours() + ':' + todayDate.getMinutes() + ':' + todayDate.getSeconds());
+        const after: string = (todayDate.getFullYear(), + '-' + todayDate.getMonth(), + '-' + todayDate.getDate() + 2 + ' ' + todayDate.getHours() + ':' + todayDate.getMinutes() + ':' + todayDate.getSeconds());
+        return this.createQueryBuilder('q').where(`q.release_date BETWEEN 
+        ${before} AND ${after} 
+        AND q.language=language AND q.country= country`)
+            .getMany();
+    }
 }

@@ -12,6 +12,9 @@ export interface IMovie extends IBaseEntity {
     year: number;
     genre: string;
     users: IUser[];
-    likeCounter?:number;
+    likeCounter?: number;
+    country: string;
+    release_date: Date;
+    language: string;
 
 }
