@@ -24,10 +24,12 @@ export class MovieRepository extends Repository<IMovie>{
     }
     public async getUpcomingMovies(country: string, language: string): Promise<IMovie[]> {
         const todayDate = new Date();
-        const before: string = (todayDate.getFullYear(), + '-' + todayDate.getMonth(), + '-' + todayDate.getDate() - 2 + ' ' + todayDate.getHours() + ':' + todayDate.getMinutes() + ':' + todayDate.getSeconds());
-        const after: string = (todayDate.getFullYear(), + '-' + todayDate.getMonth(), + '-' + todayDate.getDate() + 2 + ' ' + todayDate.getHours() + ':' + todayDate.getMinutes() + ':' + todayDate.getSeconds());
+        const daysBefore = todayDate.getDate() - 3;
+        const daysAfter = todayDate.getDate() + 2;
+        const before: Date = new Date(todayDate.getFullYear(), todayDate.getMonth() ,daysBefore,todayDate.getHours(),todayDate.getMinutes(),todayDate.getSeconds());
+        const after: Date = new Date(todayDate.getFullYear(),todayDate.getMonth(),daysAfter,todayDate.getHours(),todayDate.getMinutes(),todayDate.getSeconds());
         return this.createQueryBuilder('q').where(`q.release_date BETWEEN 
-        ${before} AND ${after} 
+        '${before.toISOString()}' AND '${after.toISOString()}'
         AND q.language=language AND q.country= country`)
             .getMany();
     }
