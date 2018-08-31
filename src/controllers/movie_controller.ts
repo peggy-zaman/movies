@@ -31,6 +31,15 @@ export class MovieController implements interfaces.Controller {
             res.send(error.message);
         }
     }
+    @httpGet("/actions")
+    public async getActiongMovies(@response() res: express.Response) {
+        try {
+            return await this.movieService.getActionMovies();
+        } catch (error) {
+            res.status(500);
+            res.send(error.message);
+        }
+    }
     @httpPost("/")
     public async addMovies(
         @response() res: express.Response,
@@ -66,6 +75,19 @@ export class MovieController implements interfaces.Controller {
             const movie = Object.create(Movie.prototype);
             Object.assign(movie, newMovie, {});
             this.movieService.likeMovie(movie);
+        } catch (error) {
+            res.status(500);
+            res.send(error.message);
+        }
+    }
+    @httpPut("/dislike")
+    public async dislikeMovies(
+        @response() res: express.Response,
+        @requestBody() newMovie: Movie) {
+        try {
+            const movie = Object.create(Movie.prototype);
+            Object.assign(movie, newMovie, {});
+            this.movieService.dislikeMovie(movie);
         } catch (error) {
             res.status(500);
             res.send(error.message);

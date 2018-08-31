@@ -3,6 +3,7 @@ import { createConnection } from "typeorm";
 import { Review } from "./src/entities/schema/review";
 import { Movie } from "./src/entities/schema/movie";
 import { User } from "./src/entities/schema/user";
+import { Genre } from "./src/entities/schema/genre";
 
 /*
 Please set the env var:
@@ -26,7 +27,8 @@ export async function getDbConnection() {
     const entities = [
         Movie,
         Review,
-        User
+        User,
+        Genre
     ];
 
     const conn = await createConnection({

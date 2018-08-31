@@ -1,5 +1,5 @@
 import { AsyncContainerModule } from 'inversify';
-import {interfaces as inversifyInterfaces} from 'inversify-express-utils'
+import { interfaces as inversifyInterfaces } from 'inversify-express-utils'
 import { TYPES } from './src/constants/types';
 import { getDbConnection } from './db';
 import { IMovieService } from './src/services/interfaces/movie_service';
@@ -11,6 +11,9 @@ import { IReviewService } from './src/services/interfaces/review_service';
 import { UserController } from './src/controllers/user_controller';
 import { UserService } from './src/services/implementations/user_service';
 import { IUserService } from './src/services/interfaces/user_service';
+import { GentreController } from './src/controllers/genre_controller';
+import { IGenreService } from './src/services/interfaces/genre_service';
+import { GenreService } from './src/services/implementations/genre_service';
 
 export const bindings = new AsyncContainerModule(async (bind) => {
 
@@ -23,5 +26,8 @@ export const bindings = new AsyncContainerModule(async (bind) => {
 
     bind<inversifyInterfaces.Controller>(TYPES.Controller).to(UserController).whenTargetNamed("UserController")
     bind<IUserService>(TYPES.UserService).to(UserService);
+
+    bind<inversifyInterfaces.Controller>(TYPES.Controller).to(GentreController).whenTargetNamed("GenreController")
+    bind<IGenreService>(TYPES.GenreService).to(GenreService);
 
 });

@@ -7,7 +7,11 @@ import { MovieRepository } from "../../repositories/movie_repository";
 @injectable()
 export class MovieService implements IMovieService {
 
+
     movieRepository = getCustomRepository(MovieRepository);
+    getActionMovies(): Promise<IMovie[]> {
+        return this.movieRepository.getActionMovies();
+    }
 
     public async getMovies(): Promise<IMovie[]> {
 
@@ -22,7 +26,10 @@ export class MovieService implements IMovieService {
     }
 
     likeMovie(movie: IMovie) {
-        this.movieRepository.updateLikes(movie);
+        this.movieRepository.incrementLikes(movie);
+    }
+    dislikeMovie(movie: IMovie) {
+        this.movieRepository.decrementLikes(movie);
     }
     getUpcomingMovies(country: string, language: string): Promise<IMovie[]> {
         return this.movieRepository.getUpcomingMovies(country, language);
