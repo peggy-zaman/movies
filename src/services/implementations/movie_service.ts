@@ -3,6 +3,7 @@ import { IMovieService } from "../interfaces/movie_service";
 import { IMovie } from "../../entities/interfaces/movie";
 import { getCustomRepository } from "typeorm";
 import { MovieRepository } from "../../repositories/movie_repository";
+import { IUser } from "../../entities/interfaces/user";
 
 @injectable()
 export class MovieService implements IMovieService {
@@ -11,6 +12,9 @@ export class MovieService implements IMovieService {
     movieRepository = getCustomRepository(MovieRepository);
     getActionMovies(): Promise<IMovie[]> {
         return this.movieRepository.getActionMovies();
+    }
+    getUsersWhoFavoritedMovie(movieId: number): Promise<IUser[]> {
+        return this.movieRepository.getUsersWhoFavoritedMovie(movieId);
     }
 
     public async getMovies(): Promise<IMovie[]> {

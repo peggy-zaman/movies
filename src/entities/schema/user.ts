@@ -6,11 +6,11 @@ import { IMovie } from "../interfaces/movie";
 
 @Entity()
 export class User extends BaseEntity implements IUser {
-    @ManyToMany(type => Movie)
+    @ManyToMany(type => Movie, movie => movie.users)
     @JoinTable()
     favoriteMovies: IMovie[]
 
-    @ManyToMany(type => Movie)
+    @ManyToMany(type => Movie, movie => movie.users)
     @JoinTable()
     watchLaterMovies: IMovie[]
 }

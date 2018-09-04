@@ -2,6 +2,8 @@ import { Repository, EntityRepository } from "typeorm";
 import { Movie } from "../entities/schema/movie";
 import { injectable } from "inversify";
 import { IMovie } from "../entities/interfaces/movie";
+import { IUser } from "../entities/interfaces/user";
+import { User } from "../entities/schema/user";
 
 @injectable()
 @EntityRepository(Movie)
@@ -9,7 +11,12 @@ export class MovieRepository extends Repository<IMovie>{
     public async getMovies(): Promise<IMovie[]> {
         return this.find({ relations: ["reviews"] });
     }
-
+    public async getUsersWhoFavoritedMovie(movieId: number): Promise<IUser[]> {
+        return this.createQueryBuilder()
+            .relation(Movie, "users")
+            .of(movieId)
+            .loadMany();
+    }
     public async getActionMovies(): Promise<IMovie[]> {
         // return this.createQueryBuilder("review")
         // .where("review.id = :id", { id: 4004 }).getMany();

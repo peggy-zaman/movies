@@ -4,6 +4,7 @@ import { injectable } from "inversify";
 import { User } from "../entities/schema/user";
 import { IMovie } from "../entities/interfaces/movie";
 import { MovieRepository } from "./movie_repository";
+import { Movie } from "../entities/schema/movie";
 
 @injectable()
 @EntityRepository(User)
@@ -43,6 +44,13 @@ export class UserRepository extends Repository<IUser> {
             .relation(User, "favoriteMovies")
             .of(userId)
             .remove(movie.id);
+    }
+
+    public async getWatchLaterMovies(userId: number): Promise<IMovie[]> {
+        return this.createQueryBuilder()
+            .relation(User, "watchLaterMovies")
+            .of(userId)
+            .loadMany();
     }
     public async addMovieToWatchLater(userId: number, movie: IMovie) {
         return this.createQueryBuilder()

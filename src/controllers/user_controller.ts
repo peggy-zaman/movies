@@ -26,6 +26,7 @@ export class UserController implements interfaces.Controller {
     }
 
 
+
     public async add(@response() res: express.Response, @requestBody() newUser: User) {
         try {
             const user = Object.create(User.prototype);
@@ -42,6 +43,15 @@ export class UserController implements interfaces.Controller {
             const movie = Object.create(Movie.prototype);
             Object.assign(movie, newMovie, {});
             await this.userService.addMovieToFavorites(+userId, movie)
+        } catch (e) {
+            res.status(500);
+            res.send(e.message);
+        }
+    }
+    @httpGet("/WatchLaterMovies")
+    public async getWatchLaterMovies(@response() res: express.Response, @queryParam("userId") userId: number) {
+        try {
+            return await this.userService.getWatchLaterMovies(userId)
         } catch (e) {
             res.status(500);
             res.send(e.message);

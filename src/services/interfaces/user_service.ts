@@ -11,5 +11,6 @@ export interface IUserService {
     removeMovieFromFavorites(userId: number, movie: IMovie);
     addMovieToWatchLater(userId: number, movie: IMovie);
     removeMovieFromWatchLater(userId: number, movie: IMovie);
+    getWatchLaterMovies(userId: number): Promise<IMovie[]>;
 
 }

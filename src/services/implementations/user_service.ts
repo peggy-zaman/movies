@@ -8,6 +8,10 @@ import { IMovie } from "../../entities/interfaces/movie";
 @injectable()
 export class UserService implements IUserService {
 
+   
+    getWatchLaterMovies(userId: number): Promise<IMovie[]> {
+        return this.userRepository.getWatchLaterMovies(userId);
+    }
     addMovieToWatchLater(userId: number, movie: IMovie) {
         return this.userRepository.addMovieToWatchLater(userId, movie);
     }

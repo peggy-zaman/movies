@@ -29,7 +29,7 @@ export class Movie extends BaseEntity implements IMovie {
     public reviews: IReview[];
     @Column()
     public year: number;
-    @ManyToOne(type => Genre, genre => genre.movies)
+    @ManyToOne(type => Genre, genre => genre.movies, { nullable: true })
     public genre: Genre;
     @ManyToMany(type => User, user => user.favoriteMovies)
     users: IUser[];
