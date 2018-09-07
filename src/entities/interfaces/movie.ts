@@ -5,6 +5,7 @@ import { IReview } from "./review";
 import { IUser } from "./user";
 import { Genre } from "../schema/genre";
 import { IGenre } from "./genre";
+import { ICrew } from "./crew";
 
 export interface IMovie extends IBaseEntity {
     title: string;
@@ -18,5 +19,6 @@ export interface IMovie extends IBaseEntity {
     country: string;
     release_date: Date;
     language: string;
+    actors: ICrew[];
     // recommendedMovies: IMovie[];
 }

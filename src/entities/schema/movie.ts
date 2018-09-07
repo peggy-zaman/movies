@@ -6,6 +6,8 @@ import { BaseEntity } from "./base_entity";
 import { User } from "./user";
 import { IUser } from "../interfaces/user";
 import { Genre } from "./genre";
+import { ICrew } from "../interfaces/crew";
+import { Crew } from "./crew";
 
 @Entity()
 export class Movie extends BaseEntity implements IMovie {
@@ -32,7 +34,10 @@ export class Movie extends BaseEntity implements IMovie {
     @ManyToOne(type => Genre, genre => genre.movies, { nullable: true })
     public genre: Genre;
     @ManyToMany(type => User, user => user.favoriteMovies)
-    users: IUser[];
+    public users: IUser[];
+
+     @OneToMany(type=> Crew, crew=> crew.movies)
+    public actors: ICrew[];
 
     // recommendedMovies: IMovie[];
 
