@@ -19,6 +19,6 @@ export interface IMovie extends IBaseEntity {
     country: string;
     release_date: Date;
     language: string;
-    actors: ICrew[];
+    // actors: ICrew[];
     // recommendedMovies: IMovie[];
 }

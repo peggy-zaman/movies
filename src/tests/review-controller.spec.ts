@@ -1,38 +1,63 @@
-import { expect } from 'chai';
-import 'mocha';
-import * as supertest from 'supertest';
-import { assert } from 'console';
-const express = require('express');
-const request = supertest('http://localhost:3000/api/v1');
+import "reflect-metadata";
+import * as supertest from "supertest";
+import { expect } from "chai";
+import * as inversify from "inversify";
+import * as express from "express";
+import * as bodyParser from "body-parser";
+import { injectable, Container } from "inversify";
+import * as Bluebird from "bluebird";
+import { interfaces, InversifyExpressServer, cleanUpMetadata } from "inversify-express-utils";
+import {
+    controller, httpMethod, all, httpGet, httpPost, httpPut, httpPatch,
+    httpHead, httpDelete, response, requestParam,
+    requestBody, queryParam, requestHeaders, cookies,
+    next
+} from "inversify-express-utils";
+import { it, describe, beforeEach } from "mocha";
+import { rejects } from "assert";
 
-describe('GET / movie', () => {
-    it('should respond with json', function (done) {
-        request.get('/movie')
-            .set('Accept', 'application/json')
-            .expect(200)
-            .expect('Content-Type', /json/)
-            .end((err, res) => {
-                if (err) done(err);
+describe("Integration Tests:", () => {
 
-                expect(res.body).to.have.length.above(2);
-                expect(res.body[0].id, '1004');
-                done();
-            });
+    beforeEach((done) => {
+        cleanUpMetadata();
+        done();
     });
-});
 
-describe('GET / UserList', () => {
-    it('should respond with json', function (done) {
-        request.get('movie/UserList')
-            .send('movieId=1004')
-            .set('Accept', 'application/json')
-            .expect(200)
-            .expect('Content-Type', /json/)
-            .end((err, res) => {
-                if (err) done(err);
+    describe("Routing & Request Handling:", () => {
 
-                expect(res.body).to.have.length.above(2);
-                done();
-            });
+        it("should work for async controller methods", (done) => {
+
+            @controller("/")
+            class ReviewController {
+                @httpGet("/") public getTest(req: express.Request, res: express.Response) {
+                    return new Promise(((resolve) => {
+                        setTimeout(resolve, 100, "GET");
+                    }));
+                }
+            }
+            const request = supertest('http://localhost:3000/api/v1');
+            request
+                .get("/review")
+                .expect(200, done);
+        });
+
+        it("should work for async controller methods that fails", (done) => {
+
+            @controller("/")
+            class ReviewController {
+                @httpGet("/") public getTest(req: express.Request, res: express.Response) {
+                    return new Bluebird(((resolve, reject) => {
+                        setTimeout(() => {
+                            reject();
+                        }, 100, "GET");
+                    }));
+                }
+            }
+            const request = supertest('http://localhost:3000/api/v1');
+            request
+                .get("/review")
+                .expect(500, done);
+        });
     });
+
 });

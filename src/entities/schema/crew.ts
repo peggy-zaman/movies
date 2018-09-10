@@ -1,11 +1,10 @@
 import { ICrew } from "../interfaces/crew";
 import { IMovie } from "../interfaces/movie";
-import { Column, ManyToMany } from "typeorm";
+import { Column, ManyToMany, Entity, BaseEntity, JoinTable } from "typeorm";
 import { Movie } from "./movie";
+@Entity()
+export class Crew extends BaseEntity implements ICrew {
 
-export class Crew implements ICrew {
-    @Column()
-    id: number;
     @Column()
     firstname: string;
     @Column()
@@ -13,6 +12,7 @@ export class Crew implements ICrew {
 
     @Column()
     birthdate: Date;
-    @ManyToMany(type => Movie, movie => movie.actors)
-    movies: IMovie[];
+    // @ManyToMany(type => Movie, movie => movie.actors)
+    // @JoinTable()
+    // movies: IMovie[];
 }

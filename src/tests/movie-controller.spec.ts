@@ -21,18 +21,18 @@ describe('GET / movie', () => {
     });
 });
 
-describe('GET / UserList', () => {
-    it('should respond with json', function (done) {
-        request.get('movie/UserList')
-            .send('movieId=3007')
-            .set('Accept', 'application/json')
-            .expect(200)
-            .expect('Content-Type', /json/)
-            .end((err, res) => {
-                if (err) done(err);
+// describe('GET / UserList', () => {
+//     it('should respond with json', function (done) {
+//         request.get('movie/UserList')
+//             .send('movieId=3007')
+//             .set('Accept', 'application/json')
+//             .expect(200)
+//             .expect('Content-Type', /json/)
+//             .end((err, res) => {
+//                 if (err) done(err);
 
-                expect(res.body).to.have.length.above(2);
-                done();
-            });
-    });
-});
+//                 expect(res.body).to.have.length.above(2);
+//                 done();
+//             });
+//     });
+// });

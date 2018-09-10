@@ -36,8 +36,8 @@ export class Movie extends BaseEntity implements IMovie {
     @ManyToMany(type => User, user => user.favoriteMovies)
     public users: IUser[];
 
-     @OneToMany(type=> Crew, crew=> crew.movies)
-    public actors: ICrew[];
+    // @ManyToMany(type => Crew, crew => crew.movies)
+    // public actors: ICrew[];
 
     // recommendedMovies: IMovie[];
 
