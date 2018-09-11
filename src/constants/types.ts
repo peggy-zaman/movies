@@ -3,5 +3,6 @@ export const TYPES = {
     MovieService: Symbol('MovieService'),
     Controller: Symbol('Controller'),
     UserService: Symbol('UserService'),
-    GenreService: Symbol('GenreService')
+    GenreService: Symbol('GenreService'),
+    CrewService: Symbol('CrewService')
 };

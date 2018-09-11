@@ -4,6 +4,8 @@ import { Review } from "./src/entities/schema/review";
 import { Movie } from "./src/entities/schema/movie";
 import { User } from "./src/entities/schema/user";
 import { Genre } from "./src/entities/schema/genre";
+import { Person } from "./src/entities/schema/person";
+import { Crew } from "./src/entities/schema/crew";
 
 /*
 Please set the env var:
@@ -28,7 +30,9 @@ export async function getDbConnection() {
         Movie,
         Review,
         User,
-        Genre
+        Genre,
+        Person,
+        Crew
     ];
 
     const conn = await createConnection({

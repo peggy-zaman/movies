@@ -1,4 +1,4 @@
-import { Column, OneToMany, Entity, ManyToMany, ManyToOne } from "typeorm";
+import { Column, OneToMany, Entity, ManyToMany, ManyToOne, JoinTable } from "typeorm";
 import { IReview } from "../interfaces/review";
 import { Review } from "./review";
 import { IMovie } from "../interfaces/movie";
@@ -36,8 +36,9 @@ export class Movie extends BaseEntity implements IMovie {
     @ManyToMany(type => User, user => user.favoriteMovies)
     public users: IUser[];
 
-    // @ManyToMany(type => Crew, crew => crew.movies)
-    // public actors: ICrew[];
+    @ManyToMany(type => Crew, crew => crew.movies)
+    @JoinTable()
+    public actors: ICrew[];
 
     // recommendedMovies: IMovie[];
 

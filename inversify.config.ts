@@ -14,6 +14,9 @@ import { IUserService } from './src/services/interfaces/user_service';
 import { GentreController } from './src/controllers/genre_controller';
 import { IGenreService } from './src/services/interfaces/genre_service';
 import { GenreService } from './src/services/implementations/genre_service';
+import { CrewController } from './src/controllers/crew_controller';
+import { ICrewService } from './src/services/interfaces/crew_service';
+import { CrewService } from './src/services/implementations/crew_service';
 
 export const bindings = new AsyncContainerModule(async (bind) => {
 
@@ -29,5 +32,8 @@ export const bindings = new AsyncContainerModule(async (bind) => {
 
     bind<inversifyInterfaces.Controller>(TYPES.Controller).to(GentreController).whenTargetNamed("GenreController")
     bind<IGenreService>(TYPES.GenreService).to(GenreService);
+
+    bind<inversifyInterfaces.Controller>(TYPES.Controller).to(CrewController).whenTargetNamed("CrewController")
+    bind<ICrewService>(TYPES.CrewService).to(CrewService);
 
 });
