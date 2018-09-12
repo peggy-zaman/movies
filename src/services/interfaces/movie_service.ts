@@ -5,6 +5,7 @@ import { IUser } from "../../entities/interfaces/user";
 export interface IMovieService {
     movieRepository: MovieRepository;
     getMovies(): Promise<IMovie[]>;
+    getMoviesForCrew(crewId: number): Promise<IMovie[]>;
     getUpcomingMovies(country: string, language: string): Promise<IMovie[]>;
     getActionMovies(): Promise<IMovie[]>;
     addMovies(movie: IMovie): Promise<IMovie>;

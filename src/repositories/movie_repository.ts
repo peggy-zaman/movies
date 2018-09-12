@@ -4,12 +4,16 @@ import { injectable } from "inversify";
 import { IMovie } from "../entities/interfaces/movie";
 import { IUser } from "../entities/interfaces/user";
 import { User } from "../entities/schema/user";
+import { Crew } from "../entities/schema/crew";
 
 @injectable()
 @EntityRepository(Movie)
 export class MovieRepository extends Repository<IMovie>{
     public async getMovies(): Promise<IMovie[]> {
         return this.find({ relations: ["reviews"] });
+    }
+    public async getMoviesForCrew(crewId: number): Promise<IMovie[]> {
+        return this.createQueryBuilder().relation(Crew, "movies").of(crewId).loadMany();
     }
     public async getUsersWhoFavoritedMovie(movieId: number): Promise<IUser[]> {
         return this.createQueryBuilder()

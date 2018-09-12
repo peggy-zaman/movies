@@ -13,6 +13,9 @@ export class MovieService implements IMovieService {
     getActionMovies(): Promise<IMovie[]> {
         return this.movieRepository.getActionMovies();
     }
+    getMoviesForCrew(crewId: number): Promise<IMovie[]> {
+        return this.movieRepository.getMoviesForCrew(crewId);
+    }
     getUsersWhoFavoritedMovie(movieId: number): Promise<IUser[]> {
         return this.movieRepository.getUsersWhoFavoritedMovie(movieId);
     }

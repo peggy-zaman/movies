@@ -22,6 +22,16 @@ export class MovieController implements interfaces.Controller {
             res.send(error.message);
         }
     }
+
+    @httpGet("/crew")
+    public async getMoviesForCrew(@response() res: express.Response, @queryParam("crewId") crewId: number) {
+        try {
+            return await this.movieService.getMoviesForCrew(crewId);
+        } catch (error) {
+            res.status(500);
+            res.send(error.message);
+        }
+    }
     @httpGet("/UserList")
     public async getUsers(@response() res: express.Response, @queryParam("movieId") movieId: number) {
         try {
